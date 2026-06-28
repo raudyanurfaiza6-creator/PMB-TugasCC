@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pendaftaran Mahasiswa Baru — Universitas Nusantara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1a2744;
+      --navy2:  #253460;
+      --gold:   #C9A84C;
+      --gold2:  #e8c96d;
+      --white:  #FFFFFF;
+      --bg:     #F5F7FA;
+      --text:   #1e2535;
+      --muted:  #6b7280;
+      --border: #dde2ec;
+      --green:  #22c55e;
+      --red:    #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--navy);
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .nav-logo {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--navy);
+    }
+    .nav-title {
+      color: var(--white);
+      font-size: .85rem;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+    .nav-title span { color: var(--gold); display: block; font-size: .7rem; font-weight: 300; letter-spacing: .08em; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-gh {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: .35rem .9rem;
+      border-radius: 4px;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .nav-gh:hover { background: var(--gold2) !important; color: var(--navy) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1e3a6e 100%);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-batik {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      opacity: .06; pointer-events: none;
+      background-image: repeating-linear-gradient(
+        45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 20px
+      ), repeating-linear-gradient(
+        -45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 20px
+      );
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(201,168,76,.15);
+      border: 1px solid rgba(201,168,76,.3);
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p {
+      color: rgba(255,255,255,.7);
+      font-size: .95rem;
+      max-width: 520px; margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--gold); font-weight: 700;
+    }
+    .stat-label { color: rgba(255,255,255,.55); font-size: .72rem; letter-spacing: .06em; margin-top: .15rem; }
+
+    /* ── TABS / SECTIONS ── */
+    .tabs {
+      display: flex; gap: 0;
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      overflow-x: auto; padding: 0 2rem;
+      position: sticky; top: 60px; z-index: 90;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .tab-btn {
+      padding: .9rem 1.4rem;
+      border: none; background: none; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem; font-weight: 500;
+      color: var(--muted);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active { color: var(--navy); border-bottom-color: var(--gold); font-weight: 600; }
+
+    .section { display: none; padding: 2.5rem 2rem; max-width: 860px; margin: 0 auto; }
+    .section.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: .35rem;
+    }
+    .card-sub { color: var(--muted); font-size: .82rem; margin-bottom: 1.25rem; line-height: 1.5; }
+
+    /* ── FORM ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; }
+    .form-group label { font-size: .8rem; font-weight: 600; color: var(--text); }
+    .form-group label span { color: var(--red); margin-left: .2rem; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: .6rem .85rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .88rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+      background: var(--white);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .step-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      background: var(--navy); color: var(--gold);
+      border-radius: 50%; font-size: .78rem; font-weight: 700;
+      margin-right: .5rem;
+    }
+    .section-heading {
+      display: flex; align-items: center;
+      font-size: .85rem; font-weight: 600; color: var(--navy);
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .7rem 1.6rem;
+      border-radius: 6px;
+      border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: .88rem; font-weight: 600;
+      transition: all .2s;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--navy); color: var(--white); }
+    .btn-primary:hover { background: var(--navy2); transform: translateY(-1px); }
+    .btn-gold { background: var(--gold); color: var(--navy); }
+    .btn-gold:hover { background: var(--gold2); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-outline:hover { background: var(--navy); color: var(--white); }
+    .btn-sm { padding: .45rem 1rem; font-size: .8rem; }
+
+    .btn-group { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    /* ── UPLOAD / DRIVE ── */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      background: var(--bg);
+      transition: border-color .2s, background .2s;
+      cursor: pointer;
+    }
+    .upload-zone:hover { border-color: var(--gold); background: rgba(201,168,76,.04); }
+    .upload-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .upload-title { font-weight: 600; font-size: .9rem; color: var(--navy); }
+    .upload-sub { font-size: .78rem; color: var(--muted); margin-top: .25rem; }
+    .upload-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: .75rem;
+      color: var(--gold); font-size: .82rem; font-weight: 600;
+      text-decoration: none;
+    }
+    .upload-link:hover { text-decoration: underline; }
+
+    .doc-list { display: grid; gap: .75rem; margin-top: 1rem; }
+    .doc-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .75rem 1rem;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .doc-left { display: flex; align-items: center; gap: .6rem; }
+    .doc-icon { font-size: 1.2rem; }
+    .doc-name { font-size: .83rem; font-weight: 600; }
+    .doc-size { font-size: .72rem; color: var(--muted); }
+    .doc-status {
+      font-size: .72rem; font-weight: 600;
+      padding: .2rem .6rem; border-radius: 999px;
+    }
+    .status-req { background: rgba(239,68,68,.1); color: var(--red); }
+    .status-opt { background: rgba(107,114,128,.1); color: var(--muted); }
+
+    /* ── SHEETS PREVIEW ── */
+    .sheet-preview {
+      background: #1e8558;
+      border-radius: 8px 8px 0 0;
+      padding: .6rem 1rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .sheet-icon { font-size: 1.1rem; }
+    .sheet-label { color: var(--white); font-size: .8rem; font-weight: 600; }
+    .sheet-table-wrap { overflow-x: auto; border: 1px solid #c5e8d5; border-top: none; border-radius: 0 0 8px 8px; }
+    .sheet-table {
+      width: 100%; border-collapse: collapse;
+      font-size: .78rem;
+    }
+    .sheet-table th {
+      background: #e9f5ef; color: #155c3a;
+      padding: .5rem .75rem; text-align: left;
+      font-weight: 700; border: 1px solid #c5e8d5;
+      white-space: nowrap;
+    }
+    .sheet-table td {
+      padding: .5rem .75rem; border: 1px solid #e2f0e8;
+      color: var(--text);
+    }
+    .sheet-table tr:nth-child(even) td { background: #f6fbf8; }
+
+    .api-box {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .api-box pre {
+      color: #a5f3d4; font-size: .78rem; line-height: 1.7;
+      white-space: pre-wrap; word-break: break-all;
+      font-family: 'Courier New', monospace;
+    }
+    .api-box .api-comment { color: rgba(165,243,212,.45); }
+    .api-box .api-key { color: #93c5fd; }
+    .api-box .api-val { color: #fde68a; }
+    .api-box .api-str { color: #a5f3d4; }
+
+    /* ── GITHUB ── */
+    .gh-card {
+      background: #0d1117; border: 1px solid #30363d;
+      border-radius: 10px; padding: 1.5rem;
+      color: #c9d1d9;
+    }
+    .gh-header { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+    .gh-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, #58a6ff, #1f6feb);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .gh-repo { font-weight: 700; color: #58a6ff; font-size: 1rem; }
+    .gh-desc { font-size: .8rem; color: #8b949e; margin-top: .15rem; }
+    .gh-meta {
+      display: flex; gap: 1.25rem; flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .gh-badge {
+      display: flex; align-items: center; gap: .3rem;
+      font-size: .78rem; color: #8b949e;
+    }
+    .gh-lang-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .gh-files {
+      border: 1px solid #30363d; border-radius: 6px;
+      overflow: hidden; margin-top: .75rem;
+    }
+    .gh-file {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .55rem .85rem; font-size: .8rem;
+      border-bottom: 1px solid #21262d;
+    }
+    .gh-file:last-child { border-bottom: none; }
+    .gh-file:hover { background: #161b22; }
+    .gh-file-icon { color: #8b949e; }
+    .gh-file-name { color: #58a6ff; flex: 1; text-decoration: none; }
+    .gh-file-name:hover { text-decoration: underline; }
+    .gh-file-msg { color: #8b949e; font-size: .75rem; flex: 2; }
+    .gh-file-time { color: #8b949e; font-size: .72rem; white-space: nowrap; }
+    .gh-actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1rem; }
+    .gh-btn {
+      background: #21262d; border: 1px solid #30363d;
+      color: #c9d1d9; border-radius: 6px;
+      padding: .4rem 1rem; font-size: .8rem;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .4rem;
+      transition: background .2s;
+    }
+    .gh-btn:hover { background: #30363d; }
+    .gh-btn-green { background: #238636; border-color: #2ea043; color: #fff; }
+    .gh-btn-green:hover { background: #2ea043; }
+
+    .config-block {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.25rem;
+      margin-top: 1rem;
+    }
+    .config-row {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .6rem 0; border-bottom: 1px solid var(--border);
+      font-size: .83rem;
+    }
+    .config-row:last-child { border-bottom: none; }
+    .config-key { font-weight: 600; color: var(--navy); min-width: 140px; }
+    .config-val { color: var(--muted); font-family: monospace; font-size: .8rem; flex: 1; }
+    .config-action {
+      background: none; border: 1px solid var(--border); border-radius: 4px;
+      padding: .2rem .55rem; font-size: .72rem; cursor: pointer;
+      color: var(--navy); transition: all .2s;
+    }
+    .config-action:hover { background: var(--navy); color: white; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
+      background: var(--navy); color: var(--white);
+      padding: .85rem 1.25rem; border-radius: 8px;
+      font-size: .85rem; font-weight: 500;
+      display: flex; align-items: center; gap: .6rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+      transform: translateY(100px); opacity: 0;
+      transition: all .3s ease;
+      max-width: 320px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 4px solid var(--green); }
+    .toast.error { border-left: 4px solid var(--red); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.5); z-index: 200;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 12px;
+      padding: 2rem; max-width: 480px; width: 90%;
+      text-align: center;
+    }
+    .modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .modal h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--navy); margin-bottom: .5rem;
+    }
+    .modal p { color: var(--muted); font-size: .88rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .modal-id {
+      background: var(--bg); border-radius: 6px;
+      padding: .75rem 1rem; margin-bottom: 1.25rem;
+      font-family: monospace; font-size: 1.1rem;
+      font-weight: 700; color: var(--navy);
+      letter-spacing: .1em;
+    }
+
+    /* ── INFO BANNER ── */
+    .info-banner {
+      background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      display: flex; gap: .75rem; align-items: flex-start;
+      margin-bottom: 1.5rem; font-size: .83rem;
+    }
+    .info-banner-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .05rem; }
+    .info-banner-text { color: #7a5c1a; line-height: 1.6; }
+    .info-banner-text strong { color: #5a3e0e; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,.5);
+      text-align: center; padding: 1.5rem 2rem;
+      font-size: .78rem; margin-top: 3rem;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-full { grid-column: auto; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+      .section { padding: 1.5rem 1rem; }
+    }
+
+    .progress-bar-wrap {
+      background: var(--border); border-radius: 999px;
+      height: 6px; margin: .5rem 0 1.25rem;
+    }
+    .progress-bar {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      transition: width .4s ease;
+    }
+
+    .inline-link { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .inline-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">U</div>
+    <div class="nav-title">
+      Universitas Nusantara
+      <span>Sistem Pendaftaran Mahasiswa Baru</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="showSection('form')">Pendaftaran</a>
+    <a href="#" onclick="showSection('dokumen')">Dokumen</a>
+    <a href="#" onclick="showSection('data')">Data & Sheets</a>
+    <a href="#" onclick="showSection('github')">GitHub</a>
+    <a href="https://github.com/universitas-nusantara/pmb-2025" target="_blank" class="nav-gh">
+      ⬡ GitHub
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-batik"></div>
+  <div class="hero-eyebrow">📅 Penerimaan Mahasiswa Baru 2025/2026</div>
+  <h1>Wujudkan Masa Depanmu<br>di <em>Universitas Nusantara</em></h1>
+  <p>Daftarkan diri kamu secara online. Proses cepat, terintegrasi dengan Google Workspace dan GitHub untuk transparansi penuh.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Program Studi</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2.400</div>
+      <div class="stat-label">Kuota Mahasiswa</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">31 Jul</div>
+      <div class="stat-label">Batas Pendaftaran</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Online & Gratis</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showSection('form')" id="tab-form">📝 Form Pendaftaran</button>
+  <button class="tab-btn" onclick="showSection('dokumen')" id="tab-dokumen">📁 Upload Dokumen</button>
+  <button class="tab-btn" onclick="showSection('data')" id="tab-data">📊 Data & Google Sheets</button>
+  <button class="tab-btn" onclick="showSection('github')" id="tab-github">⬡ GitHub Repository</button>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: FORM PENDAFTARAN -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section active" id="section-form">
+
+  <div class="info-banner">
+    <div class="info-banner-icon">💡</div>
+    <div class="info-banner-text">
+      <strong>Cara Integrasi Google Form:</strong> Ganti <code>YOUR_FORM_ID</code> pada URL iframe di bawah dengan ID Google Form kamu. Atau gunakan form HTML native ini yang terhubung ke Google Apps Script untuk menyimpan data ke Google Sheets secara otomatis.
+    </div>
+  </div>
+
+  <!-- OPSI A: EMBED GOOGLE FORM -->
+  <div class="card">
+    <div class="card-title">Opsi A — Embed Google Form Resmi</div>
+    <div class="card-sub">Tempelkan Google Form kamu langsung di sini. Ganti URL berikut dengan link embed form milikmu.</div>
+    <div style="background:var(--bg);border:2px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:.5rem;">📋</div>
+      <div style="font-weight:600;color:var(--navy);margin-bottom:.35rem;">Google Form Embed Area</div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Ganti kode di bawah ini dengan kode embed Google Form kamu</div>
+      <code style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.5rem .75rem;font-size:.75rem;color:#c0392b;display:block;text-align:left;line-height:1.8;">
+        &lt;iframe<br>
+        &nbsp;&nbsp;src="https://docs.google.com/forms/d/<strong>YOUR_FORM_ID</strong>/viewform?embedded=true"<br>
+        &nbsp;&nbsp;width="100%" height="800" frameborder="0"<br>
+        &gt;&lt;/iframe&gt;
+      </code>
+      <div style="margin-top:1rem;">
+        <a href="https://forms.google.com" target="_blank" class="btn btn-gold btn-sm">
+          🔗 Buka Google Forms
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPSI B: FORM NATIVE + APPS SCRIPT -->
+  <div class="card">
+    <div class="card-title">Opsi B — Form Native (Terhubung ke Google Sheets)</div>
+    <div class="card-sub">Form ini mengirim data langsung ke Google Sheets via Apps Script Web App.</div>
+
+    <div id="progress-wrap" style="display:none;">
+      <div style="font-size:.78rem;color:var(--muted);margin-bottom:.25rem;">Kelengkapan form: <span id="pct">0</span>%</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+    </div>
+
+    <div class="section-heading"><span class="step-badge">1</span>Data Pribadi</div>
+    <div class="form-grid" id="reg-form">
+      <div class="form-group">
+        <label>Nama Lengkap <span>*</span></label>
+        <input type="text" id="f-nama" placeholder="Sesuai ijazah/KTP" oninput="updateProgress()" />
+      </div>
+      <div class="form-group">
+        <label>NIK / No. KTP <span>*</span></label>
+        <input type="text" id="f-nik" placeholder="16 digit" maxlength="16" oninput="updateProgress()" />
+      </div>
+      <div class="form-group">
+        <label>Tempat Lahir <span>*</span></label>
+        <input type="text" id="f-tmplahir" placeholder="Kota" oninput="updateProgress()" />
+      </div>
+      <div class="form-group">
+        <label>Tanggal Lahir <span>*</span></label>
+        <input type="date" id="f-tgllahir" oninput="updateProgress()" />
+      </div>
+      <div class="form-group">
+        <label>Jenis Kelamin <span>*</span></label>
+        <select id="f-jk" onchange="updateProgress()">
+          <option value="">Pilih...</option>
+          <option>Laki-laki</option>
+          <option>Perempuan</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Agama <span>*</span></label>
+        <select id="f-agama" onchange="updateProgress()">
+          <option value="">Pilih...</option>
+          <option>Islam</option><option>Kristen</option><option>Katolik</option>
+          <option>Hindu</option><option>Buddha</option><option>Konghucu</option>
+        </select>
+      </div>
+
+      <div class="form-group form-full" style="margin-top:.5rem;">
+        <div class="section-heading"><span class="step-badge">2</span>Kontak & Alamat</div>
+      </div>
+      <div class="form-group">
+        <label>Email Aktif <span>*</span></label>
+        <input type="email" id="f-email" placeholder="nama@email.com" oninput="updateProgress()" />
+      </div>
+      <div class="form-group">
+        <label>No. WhatsApp <span>*</span></label>
+        <input type="text" id="f-wa" placeholder="08xx-xxxx-xxxx" oninput="updateProgress()" />
+      </div>
+      <div class="form-group form-full">
+        <label>Alamat Lengkap <span>*</span></label>
+        <textarea id="f-alamat" placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota" oninput="updateProgress()"></textarea>
+      </div>
+
+      <div class="form-group form-full" style="margin-top:.5rem;">
+        <div class="section-heading"><span class="step-badge">3</span>Akademik & Program Studi</div>
+      </div>
+      <div class="form-group">
+        <label>Asal Sekolah <span>*</span></label>
+        <input type="text" id="f-sekolah" placeholder="Nama SMA/SMK/MA" oninput="updateProgress()" />
+      </div>
+      <div class="form-group">
+        <label>Tahun Lulus <span>*</span></label>
+        <select id="f-lulus" onchange="updateProgress()">
+          <option value="">Pilih...</option>
+          <option>2025</option><option>2024</option><option>2023</option><option>2022</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pilihan Program Studi 1 <span>*</span></label>
+        <select id="f-prodi1" onchange="updateProgress()">
+          <option value="">Pilih...</option>
+          <option>Teknik Informatika</option>
+          <option>Sistem Informasi</option>
+          <option>Manajemen Bisnis</option>
+          <option>Akuntansi</option>
+          <option>Hukum</option>
+          <option>Kedokteran</option>
+          <option>Psikologi</option>
+          <option>Desain Komunikasi Visual</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pilihan Program Studi 2</label>
+        <select id="f-prodi2" onchange="updateProgress()">
+          <option value="">Pilih...</option>
+          <option>Teknik Informatika</option>
+          <option>Sistem Informasi</option>
+          <option>Manajemen Bisnis</option>
+          <option>Akuntansi</option>
+          <option>Hukum</option>
+          <option>Kedokteran</option>
+          <option>Psikologi</option>
+          <option>Desain Komunikasi Visual</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Jalur Pendaftaran <span>*</span></label>
+        <select id="f-jalur" onchange="updateProgress()">
+          <option value="">Pilih...</option>
+          <option>Reguler</option>
+          <option>Beasiswa Prestasi</option>
+          <option>Beasiswa Kurang Mampu</option>
+          <option>Alih Jenjang (D3→S1)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nilai Rata-rata Rapor <span>*</span></label>
+        <input type="number" id="f-nilai" placeholder="0.00 – 100.00" step="0.01" min="0" max="100" oninput="updateProgress()" />
+      </div>
+      <div class="form-group form-full">
+        <label>Prestasi / Penghargaan (opsional)</label>
+        <textarea id="f-prestasi" placeholder="Sebutkan prestasi akademik atau non-akademik yang pernah diraih..." oninput="updateProgress()"></textarea>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="submitForm()">✉ Kirim Pendaftaran</button>
+      <button class="btn btn-outline" onclick="resetForm()">↺ Reset Form</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: UPLOAD DOKUMEN (GOOGLE DRIVE) -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="section-dokumen">
+
+  <div class="info-banner">
+    <div class="info-banner-icon">☁️</div>
+    <div class="info-banner-text">
+      <strong>Integrasi Google Drive:</strong> Ganti link tombol upload dengan link Google Drive Folder milikmu. Buat folder publik atau shared, lalu salin link-nya. Peserta akan mengupload langsung ke Drive kamu.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Upload Dokumen Persyaratan</div>
+    <div class="card-sub">Upload semua dokumen ke Google Drive folder resmi pendaftaran. Pastikan nama file menggunakan format: <strong>NAMA_JENIS-DOKUMEN</strong> (contoh: <em>Budi_Santoso_KTP.pdf</em>)</div>
+
+    <div class="doc-list">
+      <div class="doc-item">
+        <div class="doc-left">
+          <div class="doc-icon">🪪</div>
+          <div>
+            <div class="doc-name">KTP / Kartu Identitas</div>
+            <div class="doc-size">PDF atau JPG • Maks. 2 MB</div>
+          </div>
+        </div>
+        <span class="doc-status status-req">Wajib</span>
+      </div>
+      <div class="doc-item">
+        <div class="doc-left">
+          <div class="doc-icon">📜</div>
+          <div>
+            <div class="doc-name">Ijazah / Surat Keterangan Lulus</div>
+            <div class="doc-size">PDF • Maks. 5 MB</div>
+          </div>
+        </div>
+        <span class="doc-status status-req">Wajib</span>
+      </div>
+      <div class="doc-item">
+        <div class="doc-left">
+          <div class="doc-icon">📊</div>
+          <div>
+            <div class="doc-name">Transkrip Nilai / Rapor</div>
+            <div class="doc-size">PDF • Maks. 5 MB</div>
+          </div>
+        </div>
+        <span class="doc-status status-req">Wajib</span>
+      </div>
+      <div class="doc-item">
+        <div class="doc-left">
+          <div class="doc-icon">🖼️</div>
+          <div>
+            <div class="doc-name">Pas Foto 3×4 (Latar Merah)</div>
+            <div class="doc-size">JPG/PNG • Maks. 1 MB</div>
+          </div>
+        </div>
+        <span class="doc-status status-req">Wajib</span>
+      </div>
+      <div class="doc-item">
+        <div class="doc-left">
+          <div class="doc-icon">🏅</div>
+          <div>
+            <div class="doc-name">Sertifikat Prestasi</div>
+            <div class="doc-size">PDF/JPG • Maks. 10 MB</div>
+          </div>
+        </div>
+        <span class="doc-status status-opt">Opsional</span>
+      </div>
+      <div class="doc-item">
+        <div class="doc-left">
+          <div class="doc-icon">📋</div>
+          <div>
+            <div class="doc-name">Surat Keterangan Tidak Mampu (SKTM)</div>
+            <div class="doc-size">PDF • Maks. 2 MB</div>
+          </div>
+        </div>
+        <span class="doc-status status-opt">Beasiswa</span>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem;">
+      <div class="upload-zone" onclick="openDriveUpload()">
+        <div class="upload-icon">☁️</div>
+        <div class="upload-title">Upload ke Google Drive</div>
+        <div class="upload-sub">Klik untuk membuka folder upload resmi</div>
+        <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID?usp=sharing"
+           target="_blank" class="upload-link" onclick="event.stopPropagation()">
+          🔗 Buka Google Drive Folder →
+        </a>
+      </div>
+    </div>
+
+    <div style="margin-top:1.25rem;padding:1rem;background:var(--bg);border-radius:8px;font-size:.8rem;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--navy);">Cara upload ke Google Drive:</strong><br>
+      1. Klik tombol "Buka Google Drive Folder" di atas<br>
+      2. Login dengan akun Google kamu<br>
+      3. Klik "+ Baru" → "Upload File" → pilih dokumen<br>
+      4. Ganti nama file sesuai format: <code>NAMA_DOKUMEN</code><br>
+      5. Konfirmasi nomor pendaftaran kamu ke panitia via WhatsApp
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Kode Integrasi Google Drive</div>
+    <div class="card-sub">Untuk developer — cara menambahkan tombol upload langsung ke Google Drive folder tertentu.</div>
+    <div class="api-box">
+      <pre><span class="api-comment">// Ganti FOLDER_ID dengan ID folder Google Drive kamu</span>
+<span class="api-key">const</span> <span class="api-val">DRIVE_FOLDER_ID</span> = <span class="api-str">"YOUR_FOLDER_ID_HERE"</span>;
+
+<span class="api-key">const</span> <span class="api-val">driveUrl</span> = `https://drive.google.com/drive/folders/<span class="api-str">${DRIVE_FOLDER_ID}</span>`;
+
+<span class="api-comment">// Cara mendapatkan FOLDER_ID:</span>
+<span class="api-comment">// Buka folder di Drive → lihat URL:</span>
+<span class="api-comment">// drive.google.com/drive/folders/[FOLDER_ID]</span>
+<span class="api-comment">// Salin bagian setelah /folders/</span>
+
+<span class="api-comment">// Atur permission folder ke "Anyone with the link can edit"</span>
+<span class="api-comment">// agar peserta bisa upload tanpa login Google</span></pre>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: DATA & GOOGLE SHEETS -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="section-data">
+
+  <div class="info-banner">
+    <div class="info-banner-icon">📊</div>
+    <div class="info-banner-text">
+      <strong>Integrasi Google Sheets:</strong> Data dari form dikirim ke Google Sheets via <strong>Apps Script Web App</strong>. Deploy script sebagai Web App → salin URL-nya → tempelkan sebagai <code>APPS_SCRIPT_URL</code> di kode.
+    </div>
+  </div>
+
+  <!-- Preview Sheets -->
+  <div class="card">
+    <div class="card-title">Preview Data Pendaftar</div>
+    <div class="card-sub">Data di bawah adalah preview contoh. Data asli tersimpan di Google Sheets kamu secara real-time.</div>
+    <div class="sheet-preview">
+      <span class="sheet-icon">📗</span>
+      <span class="sheet-label">PMB-2025 — Data Pendaftar.xlsx</span>
+    </div>
+    <div class="sheet-table-wrap">
+      <table class="sheet-table">
+        <thead>
+          <tr>
+            <th>No. Reg</th>
+            <th>Nama Lengkap</th>
+            <th>Email</th>
+            <th>Program Studi</th>
+            <th>Jalur</th>
+            <th>Nilai</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="sheet-body">
+          <tr>
+            <td>PMB-2025-0001</td>
+            <td>Andi Prasetyo</td>
+            <td>andi@gmail.com</td>
+            <td>Teknik Informatika</td>
+            <td>Reguler</td>
+            <td>87.50</td>
+            <td>✅ Diterima</td>
+          </tr>
+          <tr>
+            <td>PMB-2025-0002</td>
+            <td>Sari Dewi</td>
+            <td>sari@email.com</td>
+            <td>Psikologi</td>
+            <td>Beasiswa</td>
+            <td>92.00</td>
+            <td>✅ Diterima</td>
+          </tr>
+          <tr>
+            <td>PMB-2025-0003</td>
+            <td>Budi Santoso</td>
+            <td>budi@yahoo.com</td>
+            <td>Manajemen Bisnis</td>
+            <td>Reguler</td>
+            <td>79.00</td>
+            <td>⏳ Proses</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="btn-group">
+      <a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID" target="_blank" class="btn btn-gold btn-sm">
+        📊 Buka Google Sheets
+      </a>
+      <button class="btn btn-outline btn-sm" onclick="showToast('Data di-refresh!', 'success')">🔄 Refresh Data</button>
+    </div>
+  </div>
+
+  <!-- Apps Script Code -->
+  <div class="card">
+    <div class="card-title">Google Apps Script — Web App</div>
+    <div class="card-sub">Tempel kode ini di Google Apps Script untuk menerima data dari form dan menyimpannya ke Sheets.</div>
+    <div class="api-box">
+      <pre><span class="api-comment">// ── Google Apps Script (Code.gs) ──</span>
+<span class="api-comment">// Tools > Script Editor > paste ini > Deploy as Web App</span>
+
+<span class="api-key">function</span> <span class="api-val">doPost</span>(e) {
+  <span class="api-key">const</span> sheet = SpreadsheetApp
+    .openById(<span class="api-str">"YOUR_SPREADSHEET_ID"</span>)
+    .getActiveSheet();
+
+  <span class="api-key">const</span> data = JSON.parse(e.postData.contents);
+  <span class="api-key">const</span> row = [
+    data.noReg, data.nama,     data.nik,
+    data.email, data.wa,       data.prodi1,
+    data.jalur, data.nilai,    data.sekolah,
+    <span class="api-key">new</span> Date().toLocaleString(<span class="api-str">"id-ID"</span>)
+  ];
+
+  sheet.appendRow(row);
+
+  <span class="api-key">return</span> ContentService
+    .createTextOutput(JSON.stringify({ status: <span class="api-str">"ok"</span>, noReg: data.noReg }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+<span class="api-key">function</span> <span class="api-val">doGet</span>() {
+  <span class="api-key">return</span> ContentService
+    .createTextOutput(<span class="api-str">"PMB API aktif ✓"</span>);
+}</pre>
+    </div>
+
+    <div class="config-block">
+      <div class="config-row">
+        <span class="config-key">Spreadsheet ID</span>
+        <span class="config-val">YOUR_SPREADSHEET_ID</span>
+        <button class="config-action" onclick="showToast('Salin ID dari URL Sheets kamu!','success')">?</button>
+      </div>
+      <div class="config-row">
+        <span class="config-key">Apps Script URL</span>
+        <span class="config-val">https://script.google.com/macros/s/…/exec</span>
+        <button class="config-action" onclick="copyAppsScriptUrl()">📋</button>
+      </div>
+      <div class="config-row">
+        <span class="config-key">Akses</span>
+        <span class="config-val">Execute as: Me • Who has access: Anyone</span>
+        <button class="config-action">ℹ️</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: GITHUB -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section" id="section-github">
+
+  <div class="info-banner">
+    <div class="info-banner-icon">⬡</div>
+    <div class="info-banner-text">
+      <strong>Integrasi GitHub:</strong> Simpan source code website ini di GitHub untuk version control, kolaborasi tim, dan deploy via GitHub Pages secara gratis. Ganti semua URL placeholder dengan repo kamu.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Repository GitHub</div>
+    <div class="card-sub">Source code sistem pendaftaran ini tersimpan di GitHub dan dapat di-deploy ke GitHub Pages.</div>
+
+    <div class="gh-card">
+      <div class="gh-header">
+        <div class="gh-avatar">⬡</div>
+        <div>
+          <div class="gh-repo">📦 universitas-nusantara / pmb-2025</div>
+          <div class="gh-desc">Sistem Pendaftaran Mahasiswa Baru 2025/2026 — HTML, CSS, JS + Google Workspace</div>
+        </div>
+      </div>
+      <div class="gh-meta">
+        <span class="gh-badge"><span class="gh-lang-dot" style="background:#f1e05a;"></span>HTML</span>
+        <span class="gh-badge">⭐ 12</span>
+        <span class="gh-badge">🍴 3</span>
+        <span class="gh-badge">👁️ 48</span>
+        <span class="gh-badge">📌 MIT License</span>
+        <span class="gh-badge">🔓 Public</span>
+      </div>
+      <div class="gh-files">
+        <div class="gh-file">
+          <span class="gh-file-icon">📁</span>
+          <a href="#" class="gh-file-name">assets/</a>
+          <span class="gh-file-msg">Tambah logo universitas dan ikon</span>
+          <span class="gh-file-time">2 hari lalu</span>
+        </div>
+        <div class="gh-file">
+          <span class="gh-file-icon">📄</span>
+          <a href="#" class="gh-file-name">index.html</a>
+          <span class="gh-file-msg">Form pendaftaran + integrasi Google Sheets</span>
+          <span class="gh-file-time">hari ini</span>
+        </div>
+        <div class="gh-file">
+          <span class="gh-file-icon">📄</span>
+          <a href="#" class="gh-file-name">apps-script.gs</a>
+          <span class="gh-file-msg">Google Apps Script Web App handler</span>
+          <span class="gh-file-time">3 hari lalu</span>
+        </div>
+        <div class="gh-file">
+          <span class="gh-file-icon">📄</span>
+          <a href="#" class="gh-file-name">README.md</a>
+          <span class="gh-file-msg">Dokumentasi setup dan cara deploy</span>
+          <span class="gh-file-time">3 hari lalu</span>
+        </div>
+        <div class="gh-file">
+          <span class="gh-file-icon">📄</span>
+          <a href="#" class="gh-file-name">.gitignore</a>
+          <span class="gh-file-msg">Initial setup</span>
+          <span class="gh-file-time">5 hari lalu</span>
+        </div>
+      </div>
+      <div class="gh-actions">
+        <a href="https://github.com/YOUR_USERNAME/pmb-2025" target="_blank" class="gh-btn">⬡ Buka di GitHub</a>
+        <a href="https://github.com/YOUR_USERNAME/pmb-2025/archive/refs/heads/main.zip" class="gh-btn">⬇ Download ZIP</a>
+        <a href="https://YOUR_USERNAME.github.io/pmb-2025" target="_blank" class="gh-btn gh-btn-green">🌐 GitHub Pages</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Cara Setup & Deploy ke GitHub Pages</div>
+    <div class="card-sub">Ikuti langkah berikut untuk mempublikasikan website pendaftaran secara online gratis.</div>
+    <div class="config-block">
+      <div class="config-row">
+        <span class="config-key">1. Buat Repository</span>
+        <span class="config-val">github.com → New Repository → "pmb-2025" → Public</span>
+      </div>
+      <div class="config-row">
+        <span class="config-key">2. Upload File</span>
+        <span class="config-val">Upload index.html dan assets ke repo</span>
+      </div>
+      <div class="config-row">
+        <span class="config-key">3. GitHub Pages</span>
+        <span class="config-val">Settings → Pages → Branch: main → Save</span>
+      </div>
+      <div class="config-row">
+        <span class="config-key">4. URL Live</span>
+        <span class="config-val">https://[username].github.io/pmb-2025</span>
+      </div>
+      <div class="config-row">
+        <span class="config-key">5. Custom Domain</span>
+        <span class="config-val">Settings → Pages → Custom domain → pmb.universitasmu.ac.id</span>
+      </div>
+    </div>
+
+    <div class="api-box" style="margin-top:1rem;">
+      <pre><span class="api-comment"># Clone & setup lokal</span>
+<span class="api-val">git</span> clone https://github.com/YOUR_USERNAME/pmb-2025.git
+<span class="api-val">cd</span> pmb-2025
+
+<span class="api-comment"># Edit konfigurasi di index.html</span>
+<span class="api-comment"># Ganti: YOUR_FORM_ID, YOUR_FOLDER_ID, YOUR_SHEET_ID</span>
+
+<span class="api-comment"># Push ke GitHub</span>
+<span class="api-val">git</span> add .
+<span class="api-val">git</span> commit -m <span class="api-str">"feat: update konfigurasi Google Workspace"</span>
+<span class="api-val">git</span> push origin main
+
+<span class="api-comment"># GitHub Pages otomatis deploy dalam ~2 menit ✓</span></pre>
+    </div>
+
+    <div class="btn-group">
+      <a href="https://github.com/new" target="_blank" class="btn btn-primary">⬡ Buat Repository Baru</a>
+      <a href="https://pages.github.com" target="_blank" class="btn btn-outline">📖 Panduan GitHub Pages</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SUCCESS -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h2>Pendaftaran Berhasil!</h2>
+    <p>Data kamu telah dikirim dan tersimpan di Google Sheets. Simpan nomor registrasi ini untuk keperluan selanjutnya.</p>
+    <div class="modal-id" id="modal-id">PMB-2025-0000</div>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.25rem;">
+      Cek email kamu untuk konfirmasi. Langkah berikutnya: upload dokumen ke Google Drive.
+    </p>
+    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-gold" onclick="closeModal();showSection('dokumen')">📁 Upload Dokumen</button>
+      <button class="btn btn-outline" onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toast-icon">✓</span>
+  <span id="toast-msg">Berhasil!</span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  © 2025 <span>Universitas Nusantara</span> — Sistem Pendaftaran Mahasiswa Baru &nbsp;|&nbsp;
+  Dibuat dengan ♥ menggunakan HTML + Google Workspace + GitHub Pages<br>
+  <a href="https://github.com/YOUR_USERNAME/pmb-2025" target="_blank" style="color:var(--gold);text-decoration:none;font-size:.75rem;">⬡ Source Code di GitHub</a>
+</footer>
+
+<script>
+  /* ── CONFIG — GANTI INI ── */
+  const CONFIG = {
+    APPS_SCRIPT_URL: "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec",
+    SHEETS_URL:      "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID",
+    DRIVE_FOLDER:    "https://drive.google.com/drive/folders/YOUR_FOLDER_ID",
+    GITHUB_REPO:     "https://github.com/YOUR_USERNAME/pmb-2025",
+    GITHUB_PAGES:    "https://YOUR_USERNAME.github.io/pmb-2025",
+  };
+
+  /* ── TABS ── */
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('section-' + id).classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ── PROGRESS BAR ── */
+  const requiredFields = ['f-nama','f-nik','f-tmplahir','f-tgllahir','f-jk','f-agama','f-email','f-wa','f-alamat','f-sekolah','f-lulus','f-prodi1','f-jalur','f-nilai'];
+  document.getElementById('progress-wrap').style.display = 'block';
+
+  function updateProgress() {
+    const filled = requiredFields.filter(id => document.getElementById(id)?.value?.trim()).length;
+    const pct = Math.round((filled / requiredFields.length) * 100);
+    document.getElementById('pct').textContent = pct;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  }
+
+  /* ── GENERATE NO. REGISTRASI ── */
+  function generateNoReg() {
+    const num = String(Math.floor(Math.random() * 9000) + 1000).padStart(4, '0');
+    return `PMB-2025-${num}`;
+  }
+
+  /* ── SUBMIT FORM ── */
+  async function submitForm() {
+    const required = requiredFields.map(id => ({ id, val: document.getElementById(id)?.value?.trim() }));
+    const empty = required.filter(f => !f.val);
+    if (empty.length) {
+      showToast('Lengkapi semua field wajib (*)', 'error');
+      const el = document.getElementById(empty[0].id);
+      el.focus(); el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const noReg = generateNoReg();
+    const payload = {
+      noReg,
+      nama:    document.getElementById('f-nama').value,
+      nik:     document.getElementById('f-nik').value,
+      email:   document.getElementById('f-email').value,
+      wa:      document.getElementById('f-wa').value,
+      prodi1:  document.getElementById('f-prodi1').value,
+      prodi2:  document.getElementById('f-prodi2').value,
+      jalur:   document.getElementById('f-jalur').value,
+      nilai:   document.getElementById('f-nilai').value,
+      sekolah: document.getElementById('f-sekolah').value,
+      lulus:   document.getElementById('f-lulus').value,
+      alamat:  document.getElementById('f-alamat').value,
+    };
+
+    showToast('Mengirim data ke Google Sheets…', 'success');
+
+    // ── Kirim ke Apps Script ──
+    // Uncomment line di bawah setelah mengatur APPS_SCRIPT_URL
+    /*
+    try {
+      const res = await fetch(CONFIG.APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (result.status !== 'ok') throw new Error();
+    } catch {
+      showToast('Gagal menyimpan data. Coba lagi.', 'error');
+      return;
+    }
+    */
+
+    // Simulasi sukses (hapus setelah integrasi nyata aktif)
+    setTimeout(() => {
+      addRowToPreview(payload);
+      document.getElementById('modal-id').textContent = noReg;
+      document.getElementById('modal').classList.add('open');
+    }, 800);
+  }
+
+  /* ── TAMBAH ROW KE PREVIEW TABLE ── */
+  function addRowToPreview(d) {
+    const tbody = document.getElementById('sheet-body');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${d.noReg}</td>
+      <td>${d.nama}</td>
+      <td>${d.email}</td>
+      <td>${d.prodi1}</td>
+      <td>${d.jalur}</td>
+      <td>${d.nilai}</td>
+      <td>⏳ Proses</td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  /* ── RESET ── */
+  function resetForm() {
+    requiredFields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    ['f-prodi2','f-prestasi'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    updateProgress();
+    showToast('Form dikosongkan', 'success');
+  }
+
+  /* ── MODAL ── */
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    resetForm();
+  }
+
+  /* ── TOAST ── */
+  let toastTimer;
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    document.getElementById('toast-icon').textContent = type === 'success' ? '✓' : '✕';
+    t.className = 'toast ' + type + ' show';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  /* ── DRIVE UPLOAD ── */
+  function openDriveUpload() {
+    window.open(CONFIG.DRIVE_FOLDER, '_blank');
+  }
+
+  /* ── COPY APPS SCRIPT URL ── */
+  function copyAppsScriptUrl() {
+    navigator.clipboard?.writeText(CONFIG.APPS_SCRIPT_URL);
+    showToast('URL Apps Script disalin!', 'success');
+  }
+
+  /* ── INIT ── */
+  updateProgress();
+</script>
+</body>
+</html>
