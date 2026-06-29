@@ -495,7 +495,7 @@
   <div class="nav-links">
     <a href="#" onclick="showSection('form')">Pendaftaran</a>
     <a href="#" onclick="showSection('dokumen')">Dokumen</a>
-    <a href="#" onclick="showSection('data')">Data & Sheets</a>
+    <a href="#" onclick="showSection('data')">Data &amp; Sheets</a>
     <a href="#" onclick="showSection('github')">GitHub</a>
     <a href="https://github.com/universitas-nusantara/pmb-2025" target="_blank" class="nav-gh">
       ⬡ GitHub
@@ -524,7 +524,7 @@
     </div>
     <div class="stat">
       <div class="stat-num">100%</div>
-      <div class="stat-label">Online & Gratis</div>
+      <div class="stat-label">Online &amp; Gratis</div>
     </div>
   </div>
 </div>
@@ -533,7 +533,7 @@
 <div class="tabs">
   <button class="tab-btn active" onclick="showSection('form')" id="tab-form">📝 Form Pendaftaran</button>
   <button class="tab-btn" onclick="showSection('dokumen')" id="tab-dokumen">📁 Upload Dokumen</button>
-  <button class="tab-btn" onclick="showSection('data')" id="tab-data">📊 Data & Google Sheets</button>
+  <button class="tab-btn" onclick="showSection('data')" id="tab-data">📊 Data &amp; Google Sheets</button>
   <button class="tab-btn" onclick="showSection('github')" id="tab-github">⬡ GitHub Repository</button>
 </div>
 
@@ -542,11 +542,10 @@
 <!-- ═══════════════════════════════════════════ -->
 <div class="section active" id="section-form">
 
-  
   <!-- OPSI A: EMBED GOOGLE FORM -->
   <div class="card">
     <div class="card-title">Opsi A — Embed Google Form Resmi</div>
-      <div style="background:var(--bg);border:2px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;">
+    <div style="background:var(--bg);border:2px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;">
       <div style="font-size:2rem;margin-bottom:.5rem;">📋</div>
       <div style="font-weight:600;color:var(--navy);margin-bottom:.35rem;">Google Form Embed Area</div>
       <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Ganti kode di bawah ini dengan kode embed Google Form kamu</div>
@@ -557,7 +556,7 @@
         &gt;&lt;/iframe&gt;
       </code>
       <div style="margin-top:1rem;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNLe9kVnb9N_rrumV-XkYlXdMCA_V9dOsnbuX-QspxifNy-Q/viewform?usp=dialog" target="_blank" class="btn btn-gold btn-sm">
+        <a href="https://docs.google.com/forms/d/1LTMeBqV1wsWEkZISpmHO6gGM74PehW7Ic9aq0HPF6VA/edit" target="_blank" class="btn btn-gold btn-sm">
           🔗 Buka Google Forms
         </a>
       </div>
@@ -610,7 +609,7 @@
       </div>
 
       <div class="form-group form-full" style="margin-top:.5rem;">
-        <div class="section-heading"><span class="step-badge">2</span>Kontak & Alamat</div>
+        <div class="section-heading"><span class="step-badge">2</span>Kontak &amp; Alamat</div>
       </div>
       <div class="form-group">
         <label>Email Aktif <span>*</span></label>
@@ -626,7 +625,7 @@
       </div>
 
       <div class="form-group form-full" style="margin-top:.5rem;">
-        <div class="section-heading"><span class="step-badge">3</span>Akademik & Program Studi</div>
+        <div class="section-heading"><span class="step-badge">3</span>Akademik &amp; Program Studi</div>
       </div>
       <div class="form-group">
         <label>Asal Sekolah <span>*</span></label>
@@ -778,7 +777,7 @@
         <div class="upload-icon">☁️</div>
         <div class="upload-title">Upload ke Google Drive</div>
         <div class="upload-sub">Klik untuk membuka folder upload resmi</div>
-        <a href="https://drive.google.com/drive/folders/YOUR_FOLDER_ID?usp=sharing"
+        <a href="https://drive.google.com/drive/folders/1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-?usp=sharing"
            target="_blank" class="upload-link" onclick="event.stopPropagation()">
           🔗 Buka Google Drive Folder →
         </a>
@@ -795,15 +794,15 @@
     </div>
   </div>
 
+  <!-- FIX: Kode integrasi Drive diperbaiki — variabel JS yang valid -->
   <div class="card">
     <div class="card-title">Kode Integrasi Google Drive</div>
     <div class="card-sub">Untuk developer — cara menambahkan tombol upload langsung ke Google Drive folder tertentu.</div>
     <div class="api-box">
       <pre><span class="api-comment">// Ganti FOLDER_ID dengan ID folder Google Drive kamu</span>
-<span class="api-key">const</span> <span class="api-val">1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-</span> = <span class="api-str">"Y1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-"</span>;
+<span class="api-key">const</span> <span class="api-val">folderId</span> = <span class="api-str">"1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-"</span>;
 
-<span class="api-key">const</span> <span class="api-val">driveUrl</span> = `https://drive.google.com/drive/folders/<span class="api-str">${1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-}</span>`;
-
+<span class="api-key">const</span> <span class="api-val">driveUrl</span> = <span class="api-str">`https://drive.google.com/drive/folders/${folderId}`</span>;</pre>
     </div>
   </div>
 </div>
@@ -890,7 +889,7 @@
 
 <span class="api-key">function</span> <span class="api-val">doPost</span>(e) {
   <span class="api-key">const</span> sheet = SpreadsheetApp
-    .openById(<span class="api-str">15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50</span>)
+    .openById(<span class="api-str">"15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50"</span>)
     .getActiveSheet();
 
   <span class="api-key">const</span> data = JSON.parse(e.postData.contents);
@@ -914,15 +913,16 @@
 }</pre>
     </div>
 
+    <!-- FIX: Tag </span> yang hilang pada config-key Spreadsheet ID ditambahkan -->
     <div class="config-block">
       <div class="config-row">
-        <span class="config-key">15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50/span>
+        <span class="config-key">Spreadsheet ID</span>
         <span class="config-val">15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50</span>
         <button class="config-action" onclick="showToast('Salin ID dari URL Sheets kamu!','success')">?</button>
       </div>
       <div class="config-row">
         <span class="config-key">Apps Script URL</span>
-        <span class="config-val">https://script.google.com/macros/s/AKfycby7AIHTAm5QKGg1KMjZDWoD0UwnBoaXkujRutcGI96s/devec</span>
+        <span class="config-val">https://script.google.com/macros/s/AKfycby7AIHTAm5QKGg1KMjZDWoD0UwnBoaXkujRutcGI96s/exec</span>
         <button class="config-action" onclick="copyAppsScriptUrl()">📋</button>
       </div>
       <div class="config-row">
@@ -1007,7 +1007,7 @@
   </div>
 
   <div class="card">
-    <div class="card-title">Cara Setup & Deploy ke GitHub Pages</div>
+    <div class="card-title">Cara Setup &amp; Deploy ke GitHub Pages</div>
     <div class="card-sub">Ikuti langkah berikut untuk mempublikasikan website pendaftaran secara online gratis.</div>
     <div class="config-block">
       <div class="config-row">
@@ -1033,7 +1033,7 @@
     </div>
 
     <div class="api-box" style="margin-top:1rem;">
-      <pre><span class="api-comment"># Clone & setup lokal</span>
+      <pre><span class="api-comment"># Clone &amp; setup lokal</span>
 <span class="api-val">git</span> clone https://github.com/YOUR_USERNAME/pmb-2025.git
 <span class="api-val">cd</span> pmb-2025
 
@@ -1088,9 +1088,9 @@
 <script>
   /* ── CONFIG — GANTI INI ── */
   const CONFIG = {
-    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycby7AIHTAm5QKGg1KMjZDWoD0UwnBoaXkujRutcGI96s/dev",
-    SHEETS_URL:      "https://docs.google.com/spreadsheets/d/15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50/edit?gid=0#gid=0D",
-    DRIVE_FOLDER:    "https:https://drive.google.com/drive/folders/1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-",
+    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycby7AIHTAm5QKGg1KMjZDWoD0UwnBoaXkujRutcGI96s/exec",
+    SHEETS_URL:      "https://docs.google.com/spreadsheets/d/15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50/edit?gid=0#gid=0",
+    DRIVE_FOLDER:    "https://drive.google.com/drive/folders/1UU-7oeTkZ2BuFMDkPhIcPv_Xr25GmUR-",
     GITHUB_REPO:     "https://github.com/YOUR_USERNAME/pmb-2025",
     GITHUB_PAGES:    "https://YOUR_USERNAME.github.io/pmb-2025",
   };
@@ -1151,7 +1151,7 @@
     showToast('Mengirim data ke Google Sheets…', 'success');
 
     // ── Kirim ke Apps Script ──
-    // Uncomment line di bawah setelah mengatur APPS_SCRIPT_URL
+    // Uncomment setelah mengatur APPS_SCRIPT_URL yang benar
     /*
     try {
       const res = await fetch(CONFIG.APPS_SCRIPT_URL, {
