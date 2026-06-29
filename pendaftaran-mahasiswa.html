@@ -542,11 +542,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <div class="section active" id="section-form">
 
-  <div class="info-banner">
-    <div class="info-banner-icon">💡</div>
-    <div class="info-banner-text">
-      <strong>Cara Integrasi Google Form:</strong> Ganti <code>1LTMeBqV1wsWEkZISpmHO6gGM74PehW7Ic9aq0HPF6VA</code> 
-
+  
   <!-- OPSI A: EMBED GOOGLE FORM -->
   <div class="card">
     <div class="card-title">Opsi A — Embed Google Form Resmi</div>
@@ -557,7 +553,7 @@
       <div style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Ganti kode di bawah ini dengan kode embed Google Form kamu</div>
       <code style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:.5rem .75rem;font-size:.75rem;color:#c0392b;display:block;text-align:left;line-height:1.8;">
         &lt;iframe<br>
-        &nbsp;&nbsp;src="https://docs.google.com/forms/d/<strong>YOUR_FORM_ID</strong>/viewform?embedded=true"<br>
+        &nbsp;&nbsp;src="https://docs.google.com/forms/d/<strong>1LTMeBqV1wsWEkZISpmHO6gGM74PehW7Ic9aq0HPF6VA</strong>/viewform?embedded=true"<br>
         &nbsp;&nbsp;width="100%" height="800" frameborder="0"<br>
         &gt;&lt;/iframe&gt;
       </code>
@@ -885,7 +881,7 @@
       </table>
     </div>
     <div class="btn-group">
-      <a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID" target="_blank" class="btn btn-gold btn-sm">
+      <a href="https://docs.google.com/spreadsheets/d/15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50" target="_blank" class="btn btn-gold btn-sm">
         📊 Buka Google Sheets
       </a>
       <button class="btn btn-outline btn-sm" onclick="showToast('Data di-refresh!', 'success')">🔄 Refresh Data</button>
@@ -902,7 +898,7 @@
 
 <span class="api-key">function</span> <span class="api-val">doPost</span>(e) {
   <span class="api-key">const</span> sheet = SpreadsheetApp
-    .openById(<span class="api-str">"YOUR_SPREADSHEET_ID"</span>)
+    .openById(<span class="api-str">15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50</span>)
     .getActiveSheet();
 
   <span class="api-key">const</span> data = JSON.parse(e.postData.contents);
@@ -928,8 +924,8 @@
 
     <div class="config-block">
       <div class="config-row">
-        <span class="config-key">Spreadsheet ID</span>
-        <span class="config-val">YOUR_SPREADSHEET_ID</span>
+        <span class="config-key">15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50/span>
+        <span class="config-val">15GexwSBcTJrUj-Nx6D0PIsmq4-hZ4LRMI8UWuAxPS50</span>
         <button class="config-action" onclick="showToast('Salin ID dari URL Sheets kamu!','success')">?</button>
       </div>
       <div class="config-row">
